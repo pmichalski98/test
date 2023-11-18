@@ -5,8 +5,9 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
-  @Get('/task')
-  async task(@Body() body) {
+  @Get('/')
+  task(@Body() body: Body) {
     console.log(body);
+    return 'test';
   }
 }
