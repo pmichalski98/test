@@ -1,13 +1,14 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
-  @Get('/')
+  @Post('/')
   task(@Body() body: Body) {
     console.log(body);
+    console.log('here');
     return 'test';
   }
 }
