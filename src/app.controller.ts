@@ -1,14 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
+interface TaskI {
+  question: string;
+}
 @Controller()
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
   @Post('/')
-  task(@Body() body: Body) {
-    console.log(body);
-    console.log('here');
-    return 'test';
+  async task(@Body() body: TaskI) {
+    const res = await this._appService.handleRequest(body.question);
+    return res;
   }
 }
