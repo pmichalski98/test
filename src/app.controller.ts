@@ -11,6 +11,6 @@ export class AppController {
   @Post('/')
   async task(@Body() body: TaskI) {
     const res = await this._appService.handleRequest(body.question);
-    return res;
+    return {reply: res};
   }
 }
