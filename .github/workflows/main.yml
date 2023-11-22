@@ -16,8 +16,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:       
     - name: Deploy using ssh
-      uses: appleboy/ssh-action@master
-    - uses: oven-sh/setup-bun@v1
+      uses: appleboy/ssh-action@maste
+    - name: Setup bun
+      uses: oven-sh/setup-bun@v1
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
