@@ -17,8 +17,6 @@ jobs:
     steps:       
     - name: Deploy using ssh
       uses: appleboy/ssh-action@master
-    - name: Setup bun
-      uses: oven-sh/setup-bun@v1
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
@@ -28,6 +26,6 @@ jobs:
           cd projects
           cd test
           git pull origin main
-          bun install
-          bun build
-          bun start
+          npm install
+          npm run build
+          npm run start
