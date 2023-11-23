@@ -29,6 +29,8 @@ jobs:
           cd projects
           cd test
           git pull origin main
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
           bun install
           bun build
           bun  start
