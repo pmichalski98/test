@@ -32,6 +32,12 @@ jobs:
           cd projects
           cd test
           git pull origin main
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          source ~/.bashrc
+          nvm install latest
+          nvm install v21.2.0
+          nvm use v21.2.0
           npm install
           node -v
           npm run start:dev
