@@ -31,6 +31,8 @@ jobs:
           git pull origin main
           export BUN_INSTALL="$HOME/.bun"
           export PATH="$BUN_INSTALL/bin:$PATH"
+          bun -v
+          node -v
           bun install
           bun run build
           bun  start
