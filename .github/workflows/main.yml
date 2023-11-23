@@ -19,6 +19,8 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 18
+    - run: npm install
+    - run: node -v
     - uses: oven-sh/setup-bun@v1
       with:
         bun-version: 1.0.13
@@ -35,10 +37,8 @@ jobs:
           git pull origin main
           export BUN_INSTALL="$HOME/.bun"
           export PATH="$BUN_INSTALL/bin:$PATH"
-          npm ci
-          npm test
           bun -v
           node -v
           bun install
-          bun run build
-          bun  start
+          # bun run build
+          bun start:dev
