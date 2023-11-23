@@ -45,4 +45,5 @@ jobs:
           export PATH="$BUN_INSTALL/bin:$PATH"
           bun install
           node -v
-          bun start:dev
+          bun run build
+          bun start
