@@ -14,7 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:       
+    steps:
+    - name: Install Bun locally
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - name: Deploy using ssh
     - uses: appleboy/ssh-action@master
       with:
@@ -29,6 +33,3 @@ jobs:
           bun install
           bun run build
           bun run start
-    - uses: oven-sh/setup-bun@v1 # Setup bun
-      with:
-        bun-version: latest # You can also use a specific version
