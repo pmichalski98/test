@@ -15,6 +15,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 21.2.0
     - uses: oven-sh/setup-bun@v1
       with:
         bun-version: 1.0.13
