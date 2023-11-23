@@ -16,9 +16,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:       
     - name: Deploy using ssh
-    - uses: oven-sh/setup-bun@v1 # Setup bun
-      with:
-        bun-version: latest # You can also use a specific version
     - uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -32,3 +29,6 @@ jobs:
           bun install
           bun run build
           bun run start
+    - uses: oven-sh/setup-bun@v1 # Setup bun
+      with:
+        bun-version: latest # You can also use a specific version
