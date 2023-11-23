@@ -15,10 +15,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Install Bun locally
-      uses: oven-sh/setup-bun@v1
+    - uses: oven-sh/setup-bun@v1
       with:
-        bun-version: latest
+        bun-version: 1.0.13
     - name: Deploy using ssh
       uses: appleboy/ssh-action@master
       with:
@@ -31,5 +30,5 @@ jobs:
           cd test
           git pull origin main
           bun install
-          bun run build
-          bun run start
+          bun build
+          bun  start
