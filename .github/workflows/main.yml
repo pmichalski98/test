@@ -19,9 +19,11 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: latest
+    - run: node -v
     - name: Deploy using ssh
       uses: appleboy/ssh-action@master
       with:
+        node-version: latest
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
