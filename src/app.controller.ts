@@ -9,6 +9,10 @@ interface TaskI {
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
+  @Post('/google')
+  handleGoogle(@Body() body: TaskI) {
+    console.log(body);
+  }
   @Get('/')
   getTest() {
     return 'test';
