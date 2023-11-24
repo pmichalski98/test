@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
-import { BaseMessageChunk, HumanMessage } from 'langchain/schema';
+import serpapi, { getJson } from 'serpapi';
+import {
+  BaseMessageChunk,
+  HumanMessage,
+  SystemMessage,
+} from 'langchain/schema';
 import { appendFileSync, readFileSync, writeFileSync } from 'fs';
+import * as process from 'process';
 export const intentSchema = {
   name: 'describe_intention',
   description: `Describe user's intention, based on his latest message`,
@@ -100,6 +106,35 @@ export class AppService {
       ]);
       console.log(answer);
       return answer;
+    }
+  }
+
+  async handleGoogle(question: string) {
+    const query =
+      "Portal niebezpiecznik.pl napisał kiedyś artykuł na temat zastrzegania numeru pesel. Możesz zwrócić mi adres URL do niego? Tylko potrzebuję do tego najnowszego.'\n";
+    const chat = new ChatOpenAI({
+      modelName: 'gpt-4-1106-preview',
+    });
+    const { content } = await chat.call([
+      new SystemMessage(`
+    Transform given prompt into a google search query.
+    User prompt: ${question}
+    `),
+    ]);
+    console.log(content);
+    try {
+      console.log('here');
+      const response = await getJson({
+        engine: 'google',
+        api_key: process.env.SERPAPI_API_KEY, // Get your API_KEY from https://serpapi.com/manage-api-key
+        q: content,
+        location: 'Warsaw, Poland',
+      });
+      console.log(response.organic_results[0].link);
+      const link = response.organic_results[0].link;
+      return link;
+    } catch (e) {
+      console.log(e);
     }
   }
 }
