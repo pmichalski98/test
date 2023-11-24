@@ -50,4 +50,4 @@ jobs:
           bun install
           node -v
           bun run build
-          pm2 start dist/main.js --name app
+          pm2 start dist/main.js --name app -f
