@@ -50,4 +50,5 @@ jobs:
           bun install
           node -v
           bun run build
-          bun start
+          pm2 kill
+          pm2 start "bun dist/main.js"
