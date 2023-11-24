@@ -9,6 +9,10 @@ interface TaskI {
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
+  @Get('/')
+  getTest() {
+    return 'test';
+  }
   @Post('/')
   async task(@Body() body: TaskI) {
     const res = await this._appService.handleRequest(body.question);
