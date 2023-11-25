@@ -142,12 +142,6 @@ export class AppService {
   }
 
   async handleMarkdown(question: string) {
-    const testQ = {
-      question:
-        '# Testowy dokument Markdown\n' +
-        'Takie dokumenty mogą zawierać **wiele** różnorodnie sformatowanych tekstów. Dlatego _dodaj_ wsparcie dla wszelkich wymaganych tagów.',
-    };
-
     const openai = new OpenAI();
 
     // const res = await openai.files.create({
@@ -162,7 +156,12 @@ export class AppService {
     //   });
     // }
     const completion = await openai.chat.completions.create({
-      messages: [{ role: 'system', content: question }],
+      messages: [
+        {
+          role: 'system',
+          content: `Transform given text in markdown format into html. ### Markdown text: ${question}`,
+        },
+      ],
       model: 'ft:gpt-3.5-turbo-0613:personal::8Ol6hH1o',
     });
     return completion.choices[0].message.content;
