@@ -165,7 +165,6 @@ export class AppService {
       messages: [{ role: 'system', content: question }],
       model: 'ft:gpt-3.5-turbo-0613:personal::8Ol6hH1o',
     });
-    console.log(completion.choices[0]);
-    return completion.choices[0];
+    return completion.choices[0].message.content;
   }
 }
