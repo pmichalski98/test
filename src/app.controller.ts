@@ -9,9 +9,10 @@ export class AppController {
   constructor(private readonly _appService: AppService) {}
 
   @Post('markdown')
-  async handleMarkdown(@Body() body) {
+  async handleMarkdown(@Body() body: TaskI) {
     console.log(body);
-    return body;
+    const answer = this._appService.handleMarkdown(body.question);
+    return { reply: answer };
   }
   @Post('/google')
   async handleGoogle(@Body() body: TaskI) {

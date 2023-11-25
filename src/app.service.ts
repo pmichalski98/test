@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
-import serpapi, { getJson } from 'serpapi';
+import { getJson } from 'serpapi';
+import OpenAI, { toFile } from 'openai';
+
 import {
   BaseMessageChunk,
   HumanMessage,
@@ -8,6 +10,7 @@ import {
 } from 'langchain/schema';
 import { appendFileSync, readFileSync, writeFileSync } from 'fs';
 import * as process from 'process';
+import * as fs from 'fs';
 export const intentSchema = {
   name: 'describe_intention',
   description: `Describe user's intention, based on his latest message`,
@@ -136,5 +139,33 @@ export class AppService {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  async handleMarkdown(question: string) {
+    const testQ = {
+      question:
+        '# Testowy dokument Markdown\n' +
+        'Takie dokumenty mogą zawierać **wiele** różnorodnie sformatowanych tekstów. Dlatego _dodaj_ wsparcie dla wszelkich wymaganych tagów.',
+    };
+
+    const openai = new OpenAI();
+
+    // const res = await openai.files.create({
+    //   file: fs.createReadStream('finetune.jsonl'),
+    //   purpose: 'fine-tune',
+    // });
+    // console.log(res);
+    // if (res.status === 'processed') {
+    //   const fineTune = await openai.fineTuning.jobs.create({
+    //     training_file: res.id,
+    //     model: 'gpt-3.5-turbo',
+    //   });
+    // }
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: 'system', content: question }],
+      model: 'ft:gpt-3.5-turbo-0613:personal::8Ol6hH1o',
+    });
+    console.log(completion.choices[0]);
+    return completion.choices[0];
   }
 }
