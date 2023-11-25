@@ -156,6 +156,15 @@ export class AppService {
     //   });
     //   console.log(fineTune);
     // }
+    // const completion = await openai.chat.completions.create({
+    //   messages: [
+    //     {
+    //       role: 'system',
+    //       content: `Transform given text in markdown format into html. ### Markdown text: ${question}`,
+    //     },
+    //   ],
+    //   model: 'ft:gpt-3.5-turbo-0613:personal::8OrGlSIT',
+    // });
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -163,7 +172,7 @@ export class AppService {
           content: `Transform given text in markdown format into html. ### Markdown text: ${question}`,
         },
       ],
-      model: 'ft:gpt-3.5-turbo-0613:personal::8OrGlSIT',
+      model: 'gpt-4-1106-preview',
     });
     return completion.choices[0].message.content;
   }
