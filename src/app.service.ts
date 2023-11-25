@@ -154,6 +154,7 @@ export class AppService {
     //     training_file: res.id,
     //     model: 'gpt-3.5-turbo',
     //   });
+    //   console.log(fineTune);
     // }
     const completion = await openai.chat.completions.create({
       messages: [
@@ -162,7 +163,7 @@ export class AppService {
           content: `Transform given text in markdown format into html. ### Markdown text: ${question}`,
         },
       ],
-      model: 'ft:gpt-3.5-turbo-0613:personal::8Ol6hH1o',
+      model: 'ft:gpt-3.5-turbo-0613:personal::8OrGlSIT',
     });
     return completion.choices[0].message.content;
   }
