@@ -11,7 +11,7 @@ export class AppController {
   @Post('markdown')
   async handleMarkdown(@Body() body: TaskI) {
     console.log(body);
-    const answer = this._appService.handleMarkdown(body.question);
+    const answer = await this._appService.handleMarkdown(body.question);
     console.log(answer);
     return { reply: answer };
   }
