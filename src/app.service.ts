@@ -169,7 +169,7 @@ export class AppService {
       messages: [
         {
           role: 'system',
-          content: `Transform given text in markdown format into html. ### Markdown text: ${question}`,
+          content: `Transform given text in markdown format into html.Don't use paragraph tag. Return only html, nothing else. ### Markdown text: ${question}`,
         },
       ],
       model: 'gpt-4-1106-preview',
