@@ -11,6 +11,7 @@ export class AppController {
   @Post('markdown')
   async handleMarkdown(@Body() body) {
     console.log(body);
+    return body;
   }
   @Post('/google')
   async handleGoogle(@Body() body: TaskI) {
