@@ -8,6 +8,10 @@ interface TaskI {
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
+  @Post('markdown')
+  async handleMarkdown(@Body() body) {
+    console.log(body);
+  }
   @Post('/google')
   async handleGoogle(@Body() body: TaskI) {
     console.log(body);
