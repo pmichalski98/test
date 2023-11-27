@@ -8,6 +8,11 @@ interface TaskI {
 export class AppController {
   constructor(private readonly _appService: AppService) {}
 
+  @Post('test')
+  async test(@Body() body) {
+    console.log(body);
+    return 'test';
+  }
   @Post('markdown')
   async handleMarkdown(@Body() body: TaskI) {
     console.log(body);
