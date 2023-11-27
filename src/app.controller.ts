@@ -1,5 +1,13 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AppService } from './app.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 interface TaskI {
   question: string;
@@ -9,9 +17,10 @@ export class AppController {
   constructor(private readonly _appService: AppService) {}
 
   @Post('test')
-  async test(@Body() body) {
-    console.log(body);
-    return 'test';
+  @UseInterceptors(FileInterceptor('file')) // 'file' should match the field name in the form
+  async test(@UploadedFile() file) {
+    console.log(file);
+    return 'jazda essa';
   }
   @Post('markdown')
   async handleMarkdown(@Body() body: TaskI) {
