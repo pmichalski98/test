@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ChatOpenAI } from 'langchain/chat_models/openai';
+import { OpenAIWhisperAudio } from 'langchain/document_loaders/fs/openai_whisper_audio';
 import { getJson } from 'serpapi';
 import OpenAI, { toFile } from 'openai';
 
@@ -175,5 +176,11 @@ export class AppService {
       model: 'gpt-4-1106-preview',
     });
     return completion.choices[0].message.content;
+  }
+
+  async handleAudio(buffer) {
+    const whisper = new OpenAIWhisperAudio(buffer, {});
+    const res = await whisper.load();
+    console.log(res);
   }
 }

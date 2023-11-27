@@ -19,6 +19,7 @@ export class AppController {
   @Post('test')
   @UseInterceptors(FileInterceptor('file')) // 'file' should match the field name in the form
   async test(@UploadedFile() file) {
+    const res = await this._appService.handleAudio(file.buffer);
     console.log(file);
     return 'jazda essa';
   }
