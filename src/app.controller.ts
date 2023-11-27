@@ -17,7 +17,8 @@ export class AppController {
   constructor(private readonly _appService: AppService) {}
 
   @Post('test')
-  async test(@Body() file) {
+  @UseInterceptors(FileInterceptor('file')) // 'file' should match the field name in the form
+  async test(@UploadedFile() file) {
     console.log(file);
     return 'jazda essa';
   }
