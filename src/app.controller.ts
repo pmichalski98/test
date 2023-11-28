@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 interface TaskI {
   question: string;
@@ -17,10 +19,19 @@ export class AppController {
   constructor(private readonly _appService: AppService) {}
 
   @Post('test')
-  @UseInterceptors(FileInterceptor('file')) // 'file' should match the field name in the form
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/audio',
+        filename: (req, file, callback) => {
+          callback(null, `audio.wav`);
+        },
+      }),
+    }),
+  )
   async test(@UploadedFile() file) {
+    console.log(file, 'here');
     const res = await this._appService.handleAudio(file.buffer);
-    console.log(file);
     return 'jazda essa';
   }
   @Post('markdown')

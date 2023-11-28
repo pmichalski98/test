@@ -3,7 +3,6 @@ import { ChatOpenAI } from 'langchain/chat_models/openai';
 import { OpenAIWhisperAudio } from 'langchain/document_loaders/fs/openai_whisper_audio';
 import { getJson } from 'serpapi';
 import OpenAI, { toFile } from 'openai';
-
 import {
   BaseMessageChunk,
   HumanMessage,
@@ -11,7 +10,7 @@ import {
 } from 'langchain/schema';
 import { appendFileSync, readFileSync, writeFileSync } from 'fs';
 import * as process from 'process';
-import * as fs from 'fs';
+import Lamejs from 'lamejs';
 export const intentSchema = {
   name: 'describe_intention',
   description: `Describe user's intention, based on his latest message`,
@@ -178,9 +177,9 @@ export class AppService {
     return completion.choices[0].message.content;
   }
 
-  async handleAudio(buffer) {
-    const whisper = new OpenAIWhisperAudio(buffer, {});
+  async handleAudio(file) {
+    const whisper = new OpenAIWhisperAudio('./uploads/audio/audio.wav');
     const res = await whisper.load();
-    console.log(res);
+    console.log(res[0].pageContent);
   }
 }
